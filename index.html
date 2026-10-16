@@ -1,0 +1,2324 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>TextMaster — Free Online Text Repeater | Cartoon Ladki</title>
+  <meta name="description" content="TextMaster is a fast, free, browser-based text repeater and text utility toolkit developed by Cartoon Ladki. Repeat text up to 10,000 times with full emoji and Unicode support.">
+  <meta name="theme-color" content="#064e3b">
+  <meta name="author" content="Cartoon Ladki">
+  
+  <!-- Open Graph / Social Metadata -->
+  <meta property="og:title" content="TextMaster — Free Online Text Repeater | Cartoon Ladki">
+  <meta property="og:description" content="Repeat text, emojis, and Hindi characters up to 10,000 times instantly in your browser. Includes 18+ extra text manipulation tools.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Inter for a premium, modern look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- QR Code Library for New Feature -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Inline SVG Favicon (Dark Green & White Theme) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23064e3b'/%3E%3Cstop offset='100%25' stop-color='%2310b981'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-weight='900' font-size='28'%3ETM%3C/text%3E%3C/svg%3E">
+
+  <style>
+    /* ==========================================================================
+       REDESIGNED THEME: CRISP WHITE & ROYAL DARK GREEN (DEFAULT)
+       ========================================================================== */
+    :root,
+    html[data-theme="light"] {
+      --bg-primary: #f0fdf4;
+      --bg-secondary: #dcfce7;
+      --bg-card: #ffffff;
+      --bg-input: #f8fafc;
+      --text-primary: #022c22;
+      --text-secondary: #14532d;
+      --text-muted: #166534;
+      --accent-green-dark: #064e3b;
+      --accent-green-main: #059669;
+      --accent-green-bright: #10b981;
+      --accent-green-soft: rgba(5, 150, 105, 0.08);
+      --border-color: rgba(5, 150, 105, 0.15);
+      --border-strong: rgba(5, 150, 105, 0.3);
+      --shadow-sm: 0 4px 12px rgba(5, 150, 105, 0.06);
+      --shadow-md: 0 8px 24px rgba(5, 150, 105, 0.1);
+      --shadow-lg: 0 16px 40px rgba(5, 150, 105, 0.15);
+      --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.3);
+      --success: #059669;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 999px;
+      --font-scale: 1;
+      --header-height: 74px;
+    }
+
+    /* ==========================================================================
+       DEEP FOREST DARK GREEN MODE
+       ========================================================================== */
+    html[data-theme="dark"] {
+      --bg-primary: #021a12;
+      --bg-secondary: #062e1f;
+      --bg-card: rgba(6, 46, 31, 0.85);
+      --bg-input: #02150d;
+      --text-primary: #ecfdf5;
+      --text-secondary: #a7f3d0;
+      --text-muted: #6ee7b7;
+      --accent-green-dark: #065f46;
+      --accent-green-main: #10b981;
+      --accent-green-bright: #34d399;
+      --accent-green-soft: rgba(16, 185, 129, 0.12);
+      --border-color: rgba(167, 243, 208, 0.12);
+      --border-strong: rgba(52, 211, 153, 0.3);
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.7);
+      --shadow-glow: 0 0 25px rgba(16, 185, 129, 0.2);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: calc(16px * var(--font-scale));
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Animated Background Blobs for Home Screen */
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.4;
+      animation: float 15s infinite ease-in-out;
+      pointer-events: none;
+    }
+    .blob-1 { width: 400px; height: 400px; background: var(--accent-green-bright); top: -100px; left: -100px; animation-delay: 0s; }
+    .blob-2 { width: 300px; height: 300px; background: var(--accent-green-main); bottom: 10%; right: -50px; animation-delay: -5s; }
+    .blob-3 { width: 250px; height: 250px; background: #064e3b; top: 40%; left: 30%; animation-delay: -10s; opacity: 0.2; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -50px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    /* Accessibility Focus */
+    :focus-visible {
+      outline: 2.5px solid var(--accent-green-main);
+      outline-offset: 3px;
+    }
+
+    /* ==========================================================================
+       LOADING SCREEN
+       ========================================================================== */
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #loadingScreen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader-spinner {
+      width: 56px;
+      height: 56px;
+      border: 4px solid var(--border-color);
+      border-top-color: var(--accent-green-main);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 1.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loader-text {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .loader-subtext {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ==========================================================================
+       HEADER & PILL NAVIGATION
+       ========================================================================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+    }
+    html[data-theme="dark"] header {
+      background: rgba(2, 26, 18, 0.8);
+    }
+
+    .header-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      height: 100%;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 900;
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.3);
+      flex-shrink: 0;
+    }
+
+    .brand-text span { color: var(--accent-green-main); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+      background: var(--bg-secondary);
+      padding: 0.3rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-color);
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover { color: var(--text-primary); background: var(--accent-green-soft); }
+    .nav-btn.active {
+      background: linear-gradient(135deg, #064e3b, #059669);
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.3);
+    }
+
+    .header-actions { display: flex; align-items: center; gap: 0.6rem; }
+
+    .icon-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 1.1rem;
+    }
+    .icon-btn:hover {
+      border-color: var(--accent-green-main);
+      background: var(--accent-green-soft);
+      transform: translateY(-2px);
+    }
+
+    .hamburger { display: none; }
+
+    /* Official Instagram Button */
+    .insta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 14px rgba(214, 36, 159, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .insta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(214, 36, 159, 0.5); }
+    .insta-btn svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+
+    /* ==========================================================================
+       MAIN LAYOUT & CARDS
+       ========================================================================== */
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .page-section {
+      display: none;
+      animation: slideFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .page-section.active { display: block; }
+
+    @keyframes slideFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-top: 4px solid var(--accent-green-dark);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-primary);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.1), rgba(16, 185, 129, 0.15));
+      color: var(--accent-green-main);
+      border: 1px solid var(--border-strong);
+      letter-spacing: 0.02em;
+    }
+
+    /* ==========================================================================
+       HERO BANNER (GLASSMORPHISM & MODERN LOOK)
+       ========================================================================== */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: 3.5rem 2rem;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    html[data-theme="dark"] .hero {
+      background: rgba(6, 46, 31, 0.6);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .hero .badge {
+      background: rgba(5, 150, 105, 0.15);
+      color: var(--accent-green-main);
+      border-color: var(--accent-green-main);
+      margin-bottom: 1rem;
+      display: inline-block;
+      font-size: 0.8rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.15;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-green-main) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    /* ==========================================================================
+       GRID SYSTEMS
+       ========================================================================== */
+    .repeater-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.75rem;
+    }
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin: 1.25rem 0;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    /* ==========================================================================
+       FORMS, INPUTS & QUICK EMOJI BAR
+       ========================================================================== */
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    textarea, input[type="text"], input[type="number"], input[type="email"], select {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1.5px solid var(--border-color);
+      color: var(--text-primary);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    textarea { min-height: 180px; resize: vertical; line-height: 1.6; }
+
+    textarea:focus, input:focus, select:focus {
+      border-color: var(--accent-green-main);
+      background: var(--bg-card);
+      box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15);
+      outline: none;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+
+    .emoji-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.8rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+    }
+    .emoji-bar-label { font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); margin-right: 0.3rem; }
+    .emoji-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.25rem 0.6rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .emoji-btn:hover { transform: scale(1.2); border-color: var(--accent-green-main); }
+
+    .chip-group { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem; }
+    .chip {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip:hover, .chip.active {
+      background: linear-gradient(135deg, #064e3b, #059669);
+      color: #ffffff;
+      border-color: #064e3b;
+      box-shadow: 0 3px 8px rgba(6, 78, 59, 0.25);
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      justify-content: center;
+      background: var(--bg-secondary);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      user-select: none;
+      margin-bottom: 0;
+    }
+    .checkbox-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-green-dark);
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       BUTTONS
+       ========================================================================== */
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.25rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, #022c22 0%, #047857 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      border-color: var(--accent-green-main);
+      background: var(--accent-green-soft);
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: rgba(220, 38, 38, 0.08);
+      color: var(--danger);
+      border-color: rgba(220, 38, 38, 0.25);
+    }
+    .btn-danger:hover:not(:disabled) { background: var(--danger); color: #ffffff; }
+
+    .btn-sm { padding: 0.45rem 0.85rem; font-size: 0.8rem; border-radius: var(--radius-sm); }
+    .btn-block { width: 100%; padding: 0.95rem; font-size: 1rem; }
+
+    /* ==========================================================================
+       NEW FEATURE: TOAST NOTIFICATIONS
+       ========================================================================== */
+    #toastContainer {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent-green-main);
+      color: var(--text-primary);
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      animation: slideInRight 0.3s ease forwards;
+      pointer-events: auto;
+      max-width: 320px;
+    }
+    .toast.error { border-left-color: var(--danger); }
+    .toast.warning { border-left-color: var(--warning); }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(100%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ==========================================================================
+       PREVIEW & OUTPUT
+       ========================================================================== */
+    .preview-box {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1.5px dashed var(--border-strong);
+      font-size: 0.85rem;
+    }
+    .preview-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-green-main);
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+    }
+    .preview-content {
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 90px;
+      overflow-y: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .output-wrapper { position: relative; }
+    .empty-state {
+      position: absolute;
+      inset: 30px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+      pointer-events: none;
+      color: var(--text-muted);
+    }
+    .empty-state.hidden { display: none; }
+
+    /* New QR Code Container */
+    #qrcode-container {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    #qrcode-container canvas, #qrcode-container img {
+      border-radius: 8px;
+      padding: 8px;
+      background: white;
+    }
+
+    /* ==========================================================================
+       MORE TOOLS & STATS
+       ========================================================================== */
+    .tools-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.85rem;
+      margin: 1.25rem 0;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+      border: 1px solid var(--border-strong);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease;
+    }
+    .stat-card:hover { transform: translateY(-2px); }
+    .stat-card .val { font-size: 1.6rem; font-weight: 900; color: var(--accent-green-main); display: block; }
+    .stat-card .lbl { font-size: 0.78rem; color: var(--text-secondary); font-weight: 700; margin-top: 0.25rem; display: block; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .sub-tool-panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    /* ==========================================================================
+       MODALS (Welcome & Confirm)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 44, 34, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      max-width: 480px;
+      width: 100%;
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+      animation: slideFadeIn 0.3s ease;
+      text-align: center;
+    }
+    .modal h3 { margin-bottom: 0.75rem; font-size: 1.4rem; color: var(--text-primary); }
+    .modal p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6; }
+    
+    /* Welcome Modal Specifics */
+    .welcome-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .welcome-features {
+      text-align: left;
+      background: var(--bg-secondary);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+    .welcome-features li {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .welcome-features li:last-child { margin-bottom: 0; }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      background: linear-gradient(135deg, #022c22 0%, #064e3b 100%);
+      color: #ffffff;
+      border-top: 3px solid #10b981;
+      padding: 3rem 1.5rem;
+      margin-top: auto;
+    }
+    .footer-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
+    .footer-link {
+      background: none;
+      border: none;
+      color: #a7f3d0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: #ffffff; text-decoration: underline; }
+
+    /* Legal & Info Typography */
+    .prose h2 { font-size: 1.35rem; margin: 1.75rem 0 0.75rem; color: var(--accent-green-main); }
+    .prose h2:first-child { margin-top: 0; }
+    .prose p, .prose ul { color: var(--text-secondary); margin-bottom: 1rem; }
+    .prose ul { padding-left: 1.5rem; }
+    .prose li { margin-bottom: 0.5rem; }
+    .limits-list { list-style: none; padding: 0 !important; display: grid; gap: 0.75rem; }
+    .limits-list li {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 960px) {
+      .repeater-grid { grid-template-columns: 1fr; }
+      .hamburger { display: inline-flex; }
+      .nav-links {
+        position: fixed;
+        top: var(--header-height);
+        left: 0; right: 0;
+        background: var(--bg-card);
+        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        border-bottom: 2px solid var(--border-strong);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+        gap: 0.4rem;
+        box-shadow: var(--shadow-lg);
+        display: none;
+      }
+      .nav-links.open { display: flex; }
+      .nav-btn { text-align: left; padding: 0.85rem 1rem; font-size: 1rem; border-radius: var(--radius-sm); }
+    }
+    @media (max-width: 480px) {
+      .card { padding: 1.25rem; }
+      .brand-text { font-size: 1.15rem; }
+      .insta-btn span.hide-xs { display: none; }
+      .hero { padding: 2.5rem 1.25rem; }
+      #toastContainer { bottom: 16px; right: 16px; left: 16px; }
+      .toast { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background Blobs -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <!-- Premium Loading Screen -->
+  <div id="loadingScreen">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">TextMaster</div>
+    <div class="loader-subtext">Loading your workspace...</div>
+  </div>
+
+  <!-- Welcome Pop-up Modal -->
+  <div id="welcomeModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+    <div class="modal">
+      <span class="welcome-icon">🚀</span>
+      <h3 id="welcomeTitle">Welcome to TextMaster!</h3>
+      <p>Your ultimate, 100% browser-based text utility toolkit by <strong>Cartoon Ladki</strong>. No accounts, no servers, total privacy.</p>
+      <ul class="welcome-features">
+        <li>✨ Repeat text up to 10,000 times instantly</li>
+        <li>🛠️ 18+ powerful text transformation tools</li>
+        <li>📱 New: Generate QR Codes for your text</li>
+        <li>🔒 100% Private: Everything stays on your device</li>
+      </ul>
+      <div class="btn-row" style="justify-content: center;">
+        <button type="button" class="btn btn-primary" id="closeWelcomeBtn">Get Started ⚡</button>
+        <a href="https://instagram.com/cartoon_71_41?rpxt=MXU2bmxoamZzcmM2NA%3D%3D" target="_blank" rel="noopener noreferrer" class="insta-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="hide-xs">Follow Dev</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="header-container">
+      <a href="#home" class="brand" data-nav="home" aria-label="TextMaster Home">
+        <span class="brand-logo" aria-hidden="true">TM</span>
+        <span class="brand-text">Text<span>Master</span></span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><button type="button" class="nav-btn active" data-nav="home">Home</button></li>
+          <li><button type="button" class="nav-btn" data-nav="repeater">Text Repeater</button></li>
+          <li><button type="button" class="nav-btn" data-nav="tools">More Tools</button></li>
+          <li><button type="button" class="nav-btn" data-nav="settings">Settings</button></li>
+          <li><button type="button" class="nav-btn" data-nav="about">About Us</button></li>
+          <li><button type="button" class="nav-btn" data-nav="contact">Contact Us</button></li>
+          <li><button type="button" class="nav-btn" data-nav="privacy">Privacy Policy</button></li>
+          <li><button type="button" class="nav-btn" data-nav="terms">Terms</button></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="https://instagram.com/cartoon_71_41?rpxt=MXU2bmxoamZzcmM2NA%3D%3D" target="_blank" rel="noopener noreferrer" class="insta-btn" aria-label="Follow Cartoon Ladki on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          <span class="hide-xs">Instagram</span>
+        </a>
+        <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Toggle Dark or Light Mode" title="Switch White / Dark Green Theme">
+          <span id="themeIcon" aria-hidden="true">🌙</span>
+        </button>
+        <button type="button" class="icon-btn hamburger" id="hamburgerBtn" aria-label="Open Navigation Menu" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= 1. HOME SECTION (REDESIGNED) ================= -->
+    <section id="page-home" class="page-section active" aria-labelledby="home-heading">
+      <div class="hero">
+        <span class="badge">🌿 v2.0 Premium Edition • 100% Browser-Based</span>
+        <h1 id="home-heading">TextMaster: Smart Text Repeater & Toolkit</h1>
+        <p>Repeat any text, emojis, or Hindi script up to 10,000 times in milliseconds. Customize separators, generate QR codes, listen with voice speech, or clean up text with 18+ built-in utilities.</p>
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary" data-nav="repeater" style="padding: 0.85rem 1.5rem; font-size: 1.05rem;">Open Text Repeater ⚡</button>
+          <button type="button" class="btn btn-secondary" data-nav="tools" style="padding: 0.85rem 1.5rem; font-size: 1.05rem;">Explore 18+ Tools 🛠️</button>
+        </div>
+      </div>
+
+      <!-- 3-Step Visual Guide -->
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">How It Works</h2>
+        <p style="color: var(--text-muted);">Three simple steps to master your text.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="card" style="text-align: center; border-top-color: var(--accent-green-bright);">
+          <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">1️⃣</div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text-primary);">Enter & Customize</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Type your text, add emojis with one tap, and choose how many times to repeat it (up to 10,000).</p>
+        </div>
+        <div class="card" style="text-align: center; border-top-color: var(--accent-green-main);">
+          <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">2️⃣</div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text-primary);">Generate Instantly</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Hit generate. Our memory-safe engine processes it locally without freezing your browser or phone.</p>
+        </div>
+        <div class="card" style="text-align: center; border-top-color: var(--accent-green-dark);">
+          <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">3️⃣</div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text-primary);">Export & Share</h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">Copy to clipboard, download as a .txt file, share directly, or generate a scannable QR code.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. TEXT REPEATER SECTION ================= -->
+    <section id="page-repeater" class="page-section" aria-labelledby="repeater-heading">
+      <div class="repeater-grid">
+        <!-- Left Column: Input & Controls -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title" id="repeater-heading">✍️ Input & Controls</h2>
+            <span class="badge">Max 10,000 Reps</span>
+          </div>
+
+          <div>
+            <label for="repInput">Enter Text to Repeat</label>
+            <textarea id="repInput" placeholder="Type or paste your text, emojis 😊, or Hindi (नमस्ते) here...">Hello TextMaster! 🌿</textarea>
+
+            <div class="emoji-bar" aria-label="Quick Emoji Insert">
+              <span class="emoji-bar-label">Quick Insert:</span>
+              <button type="button" class="emoji-btn" data-insert-emoji="❤️" title="Insert Heart">❤️</button>
+              <button type="button" class="emoji-btn" data-insert-emoji="🔥" title="Insert Fire">🔥</button>
+              <button type="button" class="emoji-btn" data-insert-emoji="✨" title="Insert Sparkles">✨</button>
+              <button type="button" class="emoji-btn" data-insert-emoji="😂" title="Insert Laugh">😂</button>
+              <button type="button" class="emoji-btn" data-insert-emoji="🙏" title="Insert Namaste">🙏</button>
+              <button type="button" class="emoji-btn" data-insert-emoji="🌿" title="Insert Leaf">🌿</button>
+              <button type="button" class="emoji-btn" data-insert-emoji="💯" title="Insert 100">💯</button>
+              <button type="button" class="emoji-btn" data-insert-emoji="👑" title="Insert Crown">👑</button>
+            </div>
+
+            <div class="stat-row">
+              <span id="repInputStats">Characters: 19 | Words: 2 | Lines: 1</span>
+              <div style="display:flex; flex-wrap:wrap; gap:0.35rem;">
+                <button type="button" class="btn btn-sm btn-secondary" id="sampleInputBtn" title="Load Fun Sample Text">🎲 Sample</button>
+                <button type="button" class="btn btn-sm btn-secondary" id="pasteInputBtn">📋 Paste</button>
+                <button type="button" class="btn btn-sm btn-secondary" id="selectInputBtn">Select All</button>
+                <button type="button" class="btn btn-sm btn-danger" id="clearInputBtn">Clear</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="controls-grid">
+            <div>
+              <label for="repCount">Repetition Count (1 – 10,000)</label>
+              <input type="number" id="repCount" min="1" max="10000" value="10" inputmode="numeric">
+              <div class="chip-group" role="group" aria-label="Quick repetition presets">
+                <button type="button" class="chip active" data-rep-preset="10">10</button>
+                <button type="button" class="chip" data-rep-preset="50">50</button>
+                <button type="button" class="chip" data-rep-preset="100">100</button>
+                <button type="button" class="chip" data-rep-preset="500">500</button>
+                <button type="button" class="chip" data-rep-preset="1000">1,000</button>
+              </div>
+            </div>
+
+            <div>
+              <label for="repSeparator">Output Separator</label>
+              <select id="repSeparator">
+                <option value="newline">New line (\n)</option>
+                <option value="space">Space ( )</option>
+                <option value="comma">Comma (, )</option>
+                <option value="hyphen">Hyphen ( - )</option>
+                <option value="custom">Custom separator</option>
+                <option value="none">No separator</option>
+              </select>
+              <div id="customSepContainer" style="display:none; margin-top:0.6rem;">
+                <label for="customSepInput">Custom Separator Text</label>
+                <input type="text" id="customSepInput" placeholder="e.g.  |  or  🌿 " value=" | ">
+              </div>
+            </div>
+          </div>
+
+          <div class="controls-grid" style="margin-top:0.5rem;">
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="repNumbering">
+                <span>Add Numbering (1. Text, 2. Text...)</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="repBlankLine">
+                <span>Insert Blank Line Between Repetitions</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="preview-box" aria-live="polite">
+            <div class="preview-title">Live Sample Preview (First 3 Repetitions)</div>
+            <div id="repLivePreview" class="preview-content"></div>
+          </div>
+
+          <div class="btn-row" style="margin-top:1.25rem;">
+            <button type="button" class="btn btn-primary btn-block" id="generateBtn">⚡ Generate Repeated Text</button>
+          </div>
+        </div>
+
+        <!-- Right Column: Output & Export -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">📄 Generated Output</h2>
+            <span class="badge" id="outputRepBadge">0 Repetitions</span>
+          </div>
+
+          <div class="output-wrapper">
+            <label for="repOutput">Repeated Result</label>
+            <textarea id="repOutput" readonly placeholder=""></textarea>
+            <div id="outputEmptyState" class="empty-state">
+              <p><strong>No output generated yet.</strong></p>
+              <p style="font-size:0.85rem; margin-top:0.25rem;">Configure your text and click "Generate Repeated Text".</p>
+            </div>
+          </div>
+
+          <div class="stat-row">
+            <span id="repOutputStats">Characters: 0 | Size: 0 B</span>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" id="copyOutputBtn" disabled>📋 Copy All</button>
+            <button type="button" class="btn btn-secondary" id="shareOutputBtn" disabled>📲 Share</button>
+            <button type="button" class="btn btn-secondary" id="speakOutputBtn" disabled>🔊 Listen</button>
+            <button type="button" class="btn btn-secondary" id="selectOutputBtn" disabled>🔍 Select</button>
+            <button type="button" class="btn btn-secondary" id="swapTextBtn" disabled>⇄ Swap</button>
+            <button type="button" class="btn btn-danger" id="clearOutputBtn" disabled>🗑️ Clear</button>
+          </div>
+
+          <!-- NEW FEATURE: QR Code Generator -->
+          <div class="btn-row" style="margin-top: 0.75rem;">
+            <button type="button" class="btn btn-secondary btn-block" id="generateQrBtn" disabled>📱 Generate QR Code for Output</button>
+          </div>
+          <div id="qrcode-container">
+            <div id="qrcode-display"></div>
+            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Scan to copy text on another device</span>
+          </div>
+
+          <div style="margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid var(--border-color);">
+            <label for="downloadFilename">Download Filename (.txt)</label>
+            <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+              <input type="text" id="downloadFilename" value="textmaster-output.txt" placeholder="textmaster-output.txt" style="flex:1; min-width:180px;">
+              <button type="button" class="btn btn-primary" id="downloadTxtBtn" disabled>💾 Download TXT</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. MORE TOOLS SECTION ================= -->
+    <section id="page-tools" class="page-section" aria-labelledby="tools-heading">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title" id="tools-heading">🛠️ More Text Tools (18 Utilities)</h2>
+          <span class="badge">Live Workspace</span>
+        </div>
+
+        <label for="toolsText">Workspace Text (Edit or transform your text below)</label>
+        <textarea id="toolsText" placeholder="Enter or paste text here to count, clean, sort, shuffle, convert case, reverse, or find & replace..."></textarea>
+
+        <div class="tools-stats-bar" aria-label="Text Statistics">
+          <div class="stat-card">
+            <span class="val" id="toolCharCount">0</span>
+            <span class="lbl">1. Characters</span>
+          </div>
+          <div class="stat-card">
+            <span class="val" id="toolCharNoSpaceCount">0</span>
+            <span class="lbl">Chars (No Spaces)</span>
+          </div>
+          <div class="stat-card">
+            <span class="val" id="toolWordCount">0</span>
+            <span class="lbl">2. Words</span>
+          </div>
+          <div class="stat-card">
+            <span class="val" id="toolLineCount">0</span>
+            <span class="lbl">3. Lines</span>
+          </div>
+          <div class="stat-card">
+            <span class="val" id="toolReadTime">0s</span>
+            <span class="lbl">⏱️ Read Time</span>
+          </div>
+        </div>
+
+        <h3 style="font-size:0.95rem; margin-top:1.5rem; color:var(--text-secondary); font-weight:800;">One-Click Text Transformations</h3>
+        <div class="tools-grid">
+          <button type="button" class="btn btn-secondary" data-tool-action="removeExtraSpaces">4. Remove Extra Spaces</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="removeEmptyLines">5. Remove Empty Lines</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="uppercase">6. UPPERCASE</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="lowercase">7. lowercase</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="titlecase">8. Title Case</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="reverse">9. Reverse Text</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="removeDuplicateLines">10. Remove Duplicate Lines</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="trimText">13. Trim Text & Lines</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="sortAZ">14. Sort Lines (A → Z)</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="sortZA">15. Sort Lines (Z → A)</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="shuffleLines">16. Shuffle Lines 🎲</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="numberLines">17. Number Each Line</button>
+          <button type="button" class="btn btn-secondary" data-tool-action="alternatingCase">18. aLtErNaTiNg cAsE</button>
+        </div>
+
+        <div class="sub-tool-panel">
+          <h4 style="margin-bottom:0.65rem; color:var(--text-primary);">11. Prefix & Suffix Adder (Applied to Each Line)</h4>
+          <div class="controls-grid" style="margin:0.5rem 0;">
+            <div>
+              <label for="toolPrefix">Prefix (Start of line)</label>
+              <input type="text" id="toolPrefix" placeholder="e.g. • ">
+            </div>
+            <div>
+              <label for="toolSuffix">Suffix (End of line)</label>
+              <input type="text" id="toolSuffix" placeholder="e.g. ;">
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" id="applyAffixBtn">Apply Prefix & Suffix</button>
+        </div>
+
+        <div class="sub-tool-panel">
+          <h4 style="margin-bottom:0.65rem; color:var(--text-primary);">12. Find and Replace</h4>
+          <div class="controls-grid" style="margin:0.5rem 0;">
+            <div>
+              <label for="toolFind">Find Text</label>
+              <input type="text" id="toolFind" placeholder="Word or phrase to find">
+            </div>
+            <div>
+              <label for="toolReplace">Replace With</label>
+              <input type="text" id="toolReplace" placeholder="Replacement text">
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem; margin-top:0.5rem;">
+            <label class="checkbox-label">
+              <input type="checkbox" id="toolCaseSensitive">
+              <span>Case-sensitive match</span>
+            </label>
+            <button type="button" class="btn btn-primary btn-sm" id="applyFindReplaceBtn">Replace All Occurrences</button>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:1.5rem;">
+          <button type="button" class="btn btn-primary" id="toolsCopyBtn">📋 Copy Result</button>
+          <button type="button" class="btn btn-secondary" id="toolsSendToRepeaterBtn">↪ Send to Text Repeater</button>
+          <button type="button" class="btn btn-danger" id="toolsClearBtn">🗑️ Clear Workspace</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. SETTINGS & USAGE LIMITS SECTION ================= -->
+    <section id="page-settings" class="page-section" aria-labelledby="settings-heading">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title" id="settings-heading">⚙️ Application Settings</h2>
+          <span class="badge" id="storageStatusBadge">Local Storage Active</span>
+        </div>
+
+        <div class="controls-grid">
+          <div>
+            <label for="settingTheme">Theme Mode</label>
+            <select id="settingTheme">
+              <option value="light">Crisp White & Dark Green (Default)</option>
+              <option value="dark">Deep Forest Dark Green Mode</option>
+            </select>
+          </div>
+          <div>
+            <label for="settingFontSize">Interface Font Size</label>
+            <select id="settingFontSize">
+              <option value="0.92">Small (Compact)</option>
+              <option value="1" selected>Medium (Default)</option>
+              <option value="1.1">Large (Comfortable)</option>
+            </select>
+          </div>
+          <div>
+            <label for="settingDefaultReps">Default Repetition Count (1 – 10,000)</label>
+            <input type="number" id="settingDefaultReps" min="1" max="10000" value="10">
+          </div>
+          <div>
+            <label for="settingDefaultSep">Default Separator</label>
+            <select id="settingDefaultSep">
+              <option value="newline">New line</option>
+              <option value="space">Space</option>
+              <option value="comma">Comma</option>
+              <option value="hyphen">Hyphen</option>
+              <option value="custom">Custom separator</option>
+              <option value="none">No separator</option>
+            </select>
+          </div>
+          <div>
+            <label for="settingSafeLimit">Safe Output Memory Limit (MB)</label>
+            <select id="settingSafeLimit">
+              <option value="2">2 MB (Recommended for low-RAM phones)</option>
+              <option value="5" selected>5 MB (Standard Balanced Limit)</option>
+              <option value="10">10 MB (High Capacity Devices)</option>
+            </select>
+          </div>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="settingDefaultNumbering">
+              <span>Enable numbering mode by default</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="saveSettingsBtn">💾 Save Preferences</button>
+          <button type="button" class="btn btn-danger" id="resetSettingsBtn">🔄 Reset to Defaults</button>
+        </div>
+      </div>
+
+      <div class="card prose">
+        <div class="card-header">
+          <h2 class="card-title" style="margin:0;">🛡️ Usage Limits & Terminal Conditions</h2>
+          <span class="badge">Device Protection</span>
+        </div>
+        <p>To keep your mobile phone or desktop browser fast and prevent memory freezes, TextMaster enforces the following transparent operational rules:</p>
+        <ul class="limits-list">
+          <li><span>✅</span> <div><strong>Repetition Range:</strong> Minimum repetition count is <strong>1</strong> and maximum repetition count is <strong>10,000</strong> per generation.</div></li>
+          <li><span>✅</span> <div><strong>Safe Output Memory Limit:</strong> Expected output size is calculated before generation. By default, outputs above <strong>1.5 MB</strong> trigger a memory warning, and outputs exceeding your configured safety ceiling (default <strong>5 MB</strong>, hard maximum <strong>10 MB</strong>) are blocked rather than freezing your browser.</div></li>
+          <li><span>✅</span> <div><strong>Zero Silent Truncation:</strong> TextMaster never silently cuts off or truncates your generated output. Either the complete requested repetition is generated or a clear size warning is shown.</div></li>
+          <li><span>✅</span> <div><strong>Strict Input Validation:</strong> Negative numbers, decimals, empty numbers, or malformed settings are automatically rejected.</div></li>
+          <li><span>✅</span> <div><strong>Safe Text Rendering:</strong> User input is handled strictly as plain text and is never executed as HTML or JavaScript.</div></li>
+          <li><span>✅</span> <div><strong>Honest Browser Capabilities:</strong> Clipboard copying and file downloads rely on standard browser permissions. TextMaster never runs hidden scripts, background tasks, or automatic downloads, and never transmits your text to external servers.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 5. ABOUT US SECTION ================= -->
+    <section id="page-about" class="page-section" aria-labelledby="about-heading">
+      <div class="card prose">
+        <div class="card-header">
+          <h2 class="card-title" id="about-heading" style="margin:0;">ℹ️ About Us</h2>
+          <span class="badge">Developer Info</span>
+        </div>
+        <h2>TextMaster — Text Repeater</h2>
+        <p>TextMaster is a lightweight browser-based utility designed to make text repetition and everyday text editing simple, quick and convenient.</p>
+        <p><strong>Developer:</strong> Cartoon Ladki</p>
+        <p>The tool is designed to work directly in a modern browser without requiring users to create an account.</p>
+
+        <div style="margin-top:1.5rem; padding:1.25rem; border-radius:var(--radius-md); background:var(--bg-secondary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <h3 style="font-size:1.05rem; margin-bottom:0.25rem; color:var(--text-primary);">Connect with Cartoon Ladki</h3>
+            <p style="margin:0; font-size:0.9rem;">Follow the developer on Instagram for updates and creative projects.</p>
+          </div>
+          <a href="https://instagram.com/cartoon_71_41?rpxt=MXU2bmxoamZzcmM2NA%3D%3D" target="_blank" rel="noopener noreferrer" class="insta-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>Follow @cartoon_71_41</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 6. CONTACT US SECTION ================= -->
+    <section id="page-contact" class="page-section" aria-labelledby="contact-heading">
+      <div class="card prose">
+        <div class="card-header">
+          <h2 class="card-title" id="contact-heading" style="margin:0;">📬 Contact Us</h2>
+          <span class="badge">Support & Feedback</span>
+        </div>
+        <p><strong>Developer / Publisher:</strong> Cartoon Ladki</p>
+
+        <div style="padding:1.25rem; border-radius:var(--radius-md); background:var(--bg-secondary); border:1px solid var(--border-color); margin-bottom:1.5rem;">
+          <h3 style="font-size:1.05rem; margin-bottom:0.4rem; color:var(--text-primary);">Official Instagram</h3>
+          <p style="margin-bottom:0.85rem;">You can reach out or view updates via the official Instagram profile:</p>
+          <a href="https://instagram.com/cartoon_71_41?rpxt=MXU2bmxoamZzcmM2NA%3D%3D" target="_blank" rel="noopener noreferrer" class="insta-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>@cartoon_71_41 on Instagram</span>
+          </a>
+        </div>
+
+        <div style="padding:1.25rem; border-radius:var(--radius-md); background:var(--bg-secondary); border:1px solid var(--border-color);">
+          <h3 style="font-size:1.05rem; margin-bottom:0.4rem; color:var(--text-primary);">Email Contact Configuration</h3>
+          <p id="emailNotConfiguredNotice" style="color:var(--warning); font-weight:700;">
+            Notice: Direct email contact details have not yet been published. An administrator or publisher must configure a valid contact email address below before publication.
+          </p>
+          <div style="margin-top:0.85rem;">
+            <label for="configContactEmail">Configurable Contact Email Address</label>
+            <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+              <input type="email" id="configContactEmail" placeholder="Enter publisher email (e.g. contact@example.com)" style="flex:1; min-width:220px;">
+              <button type="button" class="btn btn-secondary" id="saveContactEmailBtn">Set Email</button>
+              <button type="button" class="btn btn-danger btn-sm" id="clearContactEmailBtn">Clear</button>
+            </div>
+          </div>
+          <div id="activeMailtoContainer" style="display:none; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--border-color);">
+            <p style="margin-bottom:0.5rem; color:var(--text-primary);">Configured Support Email: <strong id="configuredEmailDisplay"></strong></p>
+            <a id="activeMailtoLink" href="#" class="btn btn-primary">✉️ Send Email via Mail App</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7. PRIVACY POLICY SECTION ================= -->
+    <section id="page-privacy" class="page-section" aria-labelledby="privacy-heading">
+      <div class="card prose">
+        <div class="card-header">
+          <h2 class="card-title" id="privacy-heading" style="margin:0;">🔒 Privacy Policy</h2>
+          <span class="badge">Last Updated: October 2026</span>
+        </div>
+        <h2>1. Local Browser Execution</h2>
+        <p>The core text-repetition and text-editing functionality of TextMaster operates locally within your web browser. Text entered into the core tools is processed in your device's memory and is not intentionally uploaded or transmitted to an external application server by TextMaster.</p>
+        <h2>2. No Account or API Key Required</h2>
+        <p>TextMaster does not require you to register an account, provide a password, or supply any API key to use its features.</p>
+        <h2>3. Local Downloads & Clipboard Access</h2>
+        <ul>
+          <li><strong>Downloaded Files:</strong> When you click the "Download TXT" button, the text file is generated locally by your browser using standard Blob URLs.</li>
+          <li><strong>Clipboard Access:</strong> TextMaster accesses your device clipboard only when you explicitly activate a "Copy" or "Paste" action and when your browser permissions allow it.</li>
+          <li><strong>Local Preferences:</strong> Non-sensitive user interface preferences (such as theme mode, font size, and default repetition settings) are stored locally in your browser's <code>localStorage</code> where supported.</li>
+        </ul>
+        <h2>4. Hosting Providers, Browser Settings & External Links</h2>
+        <p>While the TextMaster application logic itself does not transmit your input text to a backend, please note that web hosting providers, content delivery networks, or your browser vendor may collect standard server access logs. Selecting external links—such as the official Instagram profile link—will direct you to third-party platforms governed by their own privacy policies.</p>
+        <h2>5. Contacting the Developer</h2>
+        <p>If you have questions regarding this Privacy Policy, you may contact the developer (<strong>Cartoon Ladki</strong>) through the official Instagram profile or via the configured email method listed on the <button type="button" class="footer-link" style="color:var(--accent-green-main); font-weight:700; background:none; border:none; cursor:pointer;" data-nav="contact">Contact Us</button> page.</p>
+      </div>
+    </section>
+
+    <!-- ================= 8. TERMS & CONDITIONS SECTION ================= -->
+    <section id="page-terms" class="page-section" aria-labelledby="terms-heading">
+      <div class="card prose">
+        <div class="card-header">
+          <h2 class="card-title" id="terms-heading" style="margin:0;">📜 Terms & Conditions</h2>
+          <span class="badge">Last Updated: October 2026</span>
+        </div>
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing and using TextMaster — Text Repeater, you agree to comply with these Terms & Conditions. If you do not agree with any part of these terms, please discontinue use of the website.</p>
+        <h2>2. Permitted and Prohibited Uses</h2>
+        <p>TextMaster is provided as a utility for legitimate text repetition, formatting, testing, and editing. You agree not to use the tool or its generated output for unlawful harassment, spamming, denial-of-service attacks, platform abuse, or any activity that violates applicable local or international laws.</p>
+        <h2>3. User Responsibility & Content Ownership</h2>
+        <p>You retain full ownership and copyright of any original text you enter into TextMaster. You are solely responsible for the text you input, repeat, copy, download, or share using this application.</p>
+        <h2>4. Tool Limitations & Availability</h2>
+        <p>TextMaster is provided on an "as is" and "as available" basis without warranties of any kind. Browser memory constraints, operating system limitations, or device hardware differences may affect performance when handling large volumes of text.</p>
+        <h2>5. Reasonable Usage Limits</h2>
+        <p>To protect device stability, the application enforces a maximum of 10,000 repetitions per operation and a configurable memory threshold. Attempting to bypass safety checks or subject the hosted site to abusive automated traffic is prohibited.</p>
+        <h2>6. Intellectual Property</h2>
+        <p>The TextMaster branding, interface design, and original source code structure created for <strong>Cartoon Ladki</strong> are protected by applicable intellectual property laws.</p>
+        <h2>7. Contact Details</h2>
+        <p>For inquiries regarding these terms, please refer to the <button type="button" class="footer-link" style="color:var(--accent-green-main); font-weight:700; background:none; border:none; cursor:pointer;" data-nav="contact">Contact Us</button> section where official Instagram details and configurable email contact options are provided.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" style="text-align: left;">
+      <h3 id="modalTitle" style="text-align: center;">Confirm Action</h3>
+      <p id="modalDescription" style="text-align: center;">Are you sure you want to proceed?</p>
+      <div class="btn-row" style="justify-content:flex-end;">
+        <button type="button" class="btn btn-secondary" id="modalCancelBtn">Cancel</button>
+        <button type="button" class="btn btn-primary" id="modalConfirmBtn">Proceed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="brand" style="font-size:1.2rem; color:#ffffff;">
+        <span class="brand-logo" style="width:36px; height:36px; font-size:0.85rem;">TM</span>
+        <span class="brand-text" style="color:#ffffff;">Text<span style="color:#6ee7b7;">Master</span></span>
+      </div>
+      <p style="color:#ecfdf5; font-size:0.95rem;">Developed with 💚 by <strong>Cartoon Ladki</strong></p>
+      
+      <a href="https://instagram.com/cartoon_71_41?rpxt=MXU2bmxoamZzcmM2NA%3D%3D" target="_blank" rel="noopener noreferrer" class="insta-btn" aria-label="Connect with Cartoon Ladki on Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>Follow @cartoon_71_41</span>
+      </a>
+
+      <div class="footer-links">
+        <button type="button" class="footer-link" data-nav="home">Home</button>
+        <button type="button" class="footer-link" data-nav="repeater">Text Repeater</button>
+        <button type="button" class="footer-link" data-nav="tools">More Tools</button>
+        <button type="button" class="footer-link" data-nav="settings">Settings & Limits</button>
+        <button type="button" class="footer-link" data-nav="privacy">Privacy Policy</button>
+        <button type="button" class="footer-link" data-nav="terms">Terms & Conditions</button>
+        <button type="button" class="footer-link" data-nav="about">About Us</button>
+        <button type="button" class="footer-link" data-nav="contact">Contact Us</button>
+      </div>
+      <p style="color:#a7f3d0; font-size:0.8rem; margin-top: 0.5rem;">
+        &copy; 2026 TextMaster — Text Repeater. All processing runs locally in your browser.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Application JavaScript -->
+  <script>
+    (function () {
+      'use strict';
+
+      // --- Constants & Default Settings ---
+      const STORAGE_KEY = 'textmaster_preferences_v3_green';
+      const MIN_REPS = 1;
+      const MAX_REPS = 10000;
+      const WARN_THRESHOLD_BYTES = 1.5 * 1024 * 1024; // 1.5 MB soft warning
+
+      const DEFAULT_PREFS = {
+        theme: 'light',
+        fontSize: '1',
+        defaultReps: 10,
+        defaultSep: 'newline',
+        defaultNumbering: false,
+        safeLimitMB: 5,
+        contactEmail: ''
+      };
+
+      let appPrefs = Object.assign({}, DEFAULT_PREFS);
+      let isGenerating = false;
+      let lastGeneratedRepCount = 0;
+      let modalCallback = null;
+      let qrCodeObj = null; // For QR Code instance
+
+      // --- Safe LocalStorage Helper ---
+      function isStorageAvailable() {
+        try {
+          const testKey = '__tm_test__';
+          window.localStorage.setItem(testKey, testKey);
+          window.localStorage.removeItem(testKey);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+      const storageSupported = isStorageAvailable();
+
+      function loadPreferences() {
+        if (!storageSupported) {
+          const badge = document.getElementById('storageStatusBadge');
+          if (badge) badge.textContent = 'Session Mode (Storage Restricted)';
+          return;
+        }
+        try {
+          const raw = window.localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === 'object') {
+              appPrefs.theme = (parsed.theme === 'light' || parsed.theme === 'dark') ? parsed.theme : DEFAULT_PREFS.theme;
+              appPrefs.fontSize = ['0.92', '1', '1.1'].includes(String(parsed.fontSize)) ? String(parsed.fontSize) : DEFAULT_PREFS.fontSize;
+              const reps = parseInt(parsed.defaultReps, 10);
+              appPrefs.defaultReps = (!isNaN(reps) && reps >= MIN_REPS && reps <= MAX_REPS) ? reps : DEFAULT_PREFS.defaultReps;
+              const validSeps = ['newline', 'space', 'comma', 'hyphen', 'custom', 'none'];
+              appPrefs.defaultSep = validSeps.includes(parsed.defaultSep) ? parsed.defaultSep : DEFAULT_PREFS.defaultSep;
+              appPrefs.defaultNumbering = Boolean(parsed.defaultNumbering);
+              const limit = parseInt(parsed.safeLimitMB, 10);
+              appPrefs.safeLimitMB = [2, 5, 10].includes(limit) ? limit : DEFAULT_PREFS.safeLimitMB;
+              appPrefs.contactEmail = typeof parsed.contactEmail === 'string' ? parsed.contactEmail.trim() : '';
+            }
+          }
+        } catch (err) {
+          console.warn('Could not read saved preferences:', err);
+        }
+      }
+
+      function savePreferences() {
+        if (!storageSupported) return false;
+        try {
+          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(appPrefs));
+          return true;
+        } catch (err) {
+          return false;
+        }
+      }
+
+      // --- Unicode-Accurate Character Counting ---
+      function getUnicodeCharCount(str) {
+        if (!str) return 0;
+        return Array.from(str).length;
+      }
+      function getWordCount(str) {
+        if (!str || !str.trim()) return 0;
+        return str.trim().split(/\s+/).length;
+      }
+      function getLineCount(str) {
+        if (!str || str.length === 0) return 0;
+        return str.split(/\r\n|\r|\n/).length;
+      }
+      function getByteLength(str) {
+        if (!str) return 0;
+        if (typeof TextEncoder !== 'undefined') {
+          return new TextEncoder().encode(str).length;
+        }
+        return str.length * 2;
+      }
+      function formatBytes(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+      }
+
+      // --- NEW FEATURE: Toast Notification System ---
+      function showToast(message, type = 'success') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        let icon = '✅';
+        if (type === 'error') icon = '❌';
+        if (type === 'warning') icon = '⚠️';
+        
+        toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+        container.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateX(100%)';
+          toast.style.transition = 'all 0.3s ease';
+          setTimeout(() => toast.remove(), 300);
+        }, 3500);
+      }
+
+      // --- Legacy Status Notification System (Kept for compatibility) ---
+      let statusTimeout = null;
+      function showStatus(message, type = 'success', autoHideMs = 4500) {
+        // Also trigger toast for better UX
+        showToast(message, type);
+        
+        const banner = document.getElementById('statusBanner'); // Note: Removed from HTML to clean up, relying on Toast now, but keeping logic safe
+      }
+
+      // --- Modal Confirmation System ---
+      const confirmModal = document.getElementById('confirmModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDesc = document.getElementById('modalDescription');
+      const modalConfirmBtn = document.getElementById('modalConfirmBtn');
+      const modalCancelBtn = document.getElementById('modalCancelBtn');
+
+      function openConfirmModal(title, description, onConfirm) {
+        modalTitle.textContent = title;
+        modalDesc.textContent = description;
+        modalCallback = onConfirm;
+        confirmModal.classList.add('open');
+        modalConfirmBtn.focus();
+      }
+      function closeConfirmModal() {
+        confirmModal.classList.remove('open');
+        modalCallback = null;
+      }
+      modalCancelBtn.addEventListener('click', closeConfirmModal);
+      modalConfirmBtn.addEventListener('click', () => {
+        const cb = modalCallback;
+        closeConfirmModal();
+        if (typeof cb === 'function') cb();
+      });
+
+      // --- Theme & UI Preferences Application ---
+      function applyThemeAndUI() {
+        document.documentElement.setAttribute('data-theme', appPrefs.theme);
+        document.documentElement.style.setProperty('--font-scale', appPrefs.fontSize);
+        const themeIcon = document.getElementById('themeIcon');
+        if (themeIcon) {
+          themeIcon.textContent = appPrefs.theme === 'dark' ? '☀️' : '🌙';
+        }
+        document.getElementById('settingTheme').value = appPrefs.theme;
+        document.getElementById('settingFontSize').value = appPrefs.fontSize;
+        document.getElementById('settingDefaultReps').value = appPrefs.defaultReps;
+        document.getElementById('settingDefaultSep').value = appPrefs.defaultSep;
+        document.getElementById('settingDefaultNumbering').checked = appPrefs.defaultNumbering;
+        document.getElementById('settingSafeLimit').value = String(appPrefs.safeLimitMB);
+        renderContactEmailState();
+      }
+
+      function applyDefaultsToRepeater() {
+        document.getElementById('repCount').value = appPrefs.defaultReps;
+        document.getElementById('repSeparator').value = appPrefs.defaultSep;
+        document.getElementById('repNumbering').checked = appPrefs.defaultNumbering;
+        document.getElementById('customSepContainer').style.display = appPrefs.defaultSep === 'custom' ? 'block' : 'none';
+        highlightActivePreset(appPrefs.defaultReps);
+      }
+
+      // --- Navigation System ---
+      const navLinksContainer = document.getElementById('navLinks');
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+
+      function navigateTo(pageId) {
+        const validPages = ['home', 'repeater', 'tools', 'settings', 'about', 'contact', 'privacy', 'terms'];
+        const target = validPages.includes(pageId) ? pageId : 'home';
+
+        document.querySelectorAll('.page-section').forEach(sec => {
+          sec.classList.toggle('active', sec.id === 'page-' + target);
+        });
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-nav') === target);
+        });
+
+        navLinksContainer.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      document.addEventListener('click', (e) => {
+        const navTrigger = e.target.closest('[data-nav]');
+        if (navTrigger) {
+          e.preventDefault();
+          navigateTo(navTrigger.getAttribute('data-nav'));
+        }
+      });
+
+      hamburgerBtn.addEventListener('click', () => {
+        const isOpen = navLinksContainer.classList.toggle('open');
+        hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      document.getElementById('themeToggleBtn').addEventListener('click', () => {
+        appPrefs.theme = appPrefs.theme === 'dark' ? 'light' : 'dark';
+        applyThemeAndUI();
+        savePreferences();
+        showToast(appPrefs.theme === 'light' ? 'Switched to Crisp White & Dark Green theme.' : 'Switched to Deep Forest Dark Green theme.', 'success');
+      });
+
+      // --- Core Text Repeater Logic ---
+      const repInput = document.getElementById('repInput');
+      const repCount = document.getElementById('repCount');
+      const repSeparator = document.getElementById('repSeparator');
+      const customSepContainer = document.getElementById('customSepContainer');
+      const customSepInput = document.getElementById('customSepInput');
+      const repNumbering = document.getElementById('repNumbering');
+      const repBlankLine = document.getElementById('repBlankLine');
+      const repLivePreview = document.getElementById('repLivePreview');
+      const repOutput = document.getElementById('repOutput');
+      const outputEmptyState = document.getElementById('outputEmptyState');
+
+      const copyOutputBtn = document.getElementById('copyOutputBtn');
+      const shareOutputBtn = document.getElementById('shareOutputBtn');
+      const speakOutputBtn = document.getElementById('speakOutputBtn');
+      const selectOutputBtn = document.getElementById('selectOutputBtn');
+      const swapTextBtn = document.getElementById('swapTextBtn');
+      const clearOutputBtn = document.getElementById('clearOutputBtn');
+      const downloadTxtBtn = document.getElementById('downloadTxtBtn');
+      const generateQrBtn = document.getElementById('generateQrBtn');
+
+      function resolveSeparatorString() {
+        const mode = repSeparator.value;
+        const extraBlank = repBlankLine.checked;
+        let base = '';
+        switch (mode) {
+          case 'newline': base = '\n'; break;
+          case 'space': base = ' '; break;
+          case 'comma': base = ', '; break;
+          case 'hyphen': base = ' - '; break;
+          case 'custom': base = customSepInput.value; break;
+          case 'none': base = ''; break;
+          default: base = '\n';
+        }
+        if (extraBlank) {
+          return base === '\n' ? '\n\n' : base + '\n\n';
+        }
+        return base;
+      }
+
+      function buildRepeatedSegment(text, count, sep, useNumbering) {
+        const parts = new Array(count);
+        if (useNumbering) {
+          for (let i = 0; i < count; i++) {
+            parts[i] = (i + 1) + '. ' + text;
+          }
+        } else {
+          parts.fill(text);
+        }
+        return parts.join(sep);
+      }
+
+      function updateInputStatsAndPreview() {
+        const val = repInput.value;
+        const chars = getUnicodeCharCount(val);
+        const words = getWordCount(val);
+        const lines = getLineCount(val);
+        document.getElementById('repInputStats').textContent = `Characters: ${chars.toLocaleString()} | Words: ${words.toLocaleString()} | Lines: ${lines.toLocaleString()}`;
+
+        if (!val) {
+          repLivePreview.textContent = '(Enter text above to see live preview)';
+          return;
+        }
+        const rawCount = parseInt(repCount.value, 10);
+        const previewCount = (!isNaN(rawCount) && rawCount > 0) ? Math.min(rawCount, 3) : 3;
+        const sep = resolveSeparatorString();
+        const sample = buildRepeatedSegment(val.slice(0, 120), previewCount, sep, repNumbering.checked);
+        repLivePreview.textContent = sample + (rawCount > 3 ? sep + '...' : '');
+      }
+
+      function updateOutputUI(outputText, repTotal) {
+        repOutput.value = outputText;
+        lastGeneratedRepCount = repTotal;
+        const hasContent = outputText.length > 0;
+        outputEmptyState.classList.toggle('hidden', hasContent);
+
+        copyOutputBtn.disabled = !hasContent;
+        shareOutputBtn.disabled = !hasContent;
+        speakOutputBtn.disabled = !hasContent;
+        selectOutputBtn.disabled = !hasContent;
+        swapTextBtn.disabled = !hasContent;
+        clearOutputBtn.disabled = !hasContent;
+        downloadTxtBtn.disabled = !hasContent;
+        generateQrBtn.disabled = !hasContent;
+
+        // Hide QR if cleared
+        if (!hasContent) {
+          document.getElementById('qrcode-container').style.display = 'none';
+        }
+
+        const charCount = getUnicodeCharCount(outputText);
+        const byteCount = getByteLength(outputText);
+        document.getElementById('repOutputStats').textContent = `Characters: ${charCount.toLocaleString()} | Size: ${formatBytes(byteCount)}`;
+        document.getElementById('outputRepBadge').textContent = `${repTotal.toLocaleString()} Repetition${repTotal === 1 ? '' : 's'}`;
+      }
+
+      function highlightActivePreset(val) {
+        document.querySelectorAll('[data-rep-preset]').forEach(chip => {
+          chip.classList.toggle('active', parseInt(chip.getAttribute('data-rep-preset'), 10) === Number(val));
+        });
+      }
+
+      // Event Listeners for Repeater Controls
+      repInput.addEventListener('input', updateInputStatsAndPreview);
+      repCount.addEventListener('input', () => {
+        highlightActivePreset(repCount.value);
+        updateInputStatsAndPreview();
+      });
+      repSeparator.addEventListener('change', () => {
+        customSepContainer.style.display = repSeparator.value === 'custom' ? 'block' : 'none';
+        updateInputStatsAndPreview();
+      });
+      customSepInput.addEventListener('input', updateInputStatsAndPreview);
+      repNumbering.addEventListener('change', updateInputStatsAndPreview);
+      repBlankLine.addEventListener('change', updateInputStatsAndPreview);
+
+      document.querySelectorAll('[data-rep-preset]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const preset = chip.getAttribute('data-rep-preset');
+          repCount.value = preset;
+          highlightActivePreset(preset);
+          updateInputStatsAndPreview();
+        });
+      });
+
+      document.querySelectorAll('[data-insert-emoji]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const emoji = btn.getAttribute('data-insert-emoji');
+          const start = repInput.selectionStart || repInput.value.length;
+          const end = repInput.selectionEnd || repInput.value.length;
+          const current = repInput.value;
+          repInput.value = current.slice(0, start) + emoji + current.slice(end);
+          repInput.focus();
+          updateInputStatsAndPreview();
+        });
+      });
+
+      const samplePhrases = [
+        'नमस्ते दोस्तों! 🌿✨',
+        'Follow @cartoon_71_41 on Instagram 👑🔥',
+        'Har Har Mahadev 🙏🔱',
+        'I Love You 3000 ❤️✨',
+        'TextMaster Green Edition 🌿💯'
+      ];
+      let sampleIndex = 0;
+      document.getElementById('sampleInputBtn').addEventListener('click', () => {
+        repInput.value = samplePhrases[sampleIndex % samplePhrases.length];
+        sampleIndex++;
+        updateInputStatsAndPreview();
+        showToast('Loaded sample text!', 'success');
+      });
+
+      document.getElementById('pasteInputBtn').addEventListener('click', async () => {
+        if (navigator.clipboard && navigator.clipboard.readText) {
+          try {
+            const clipText = await navigator.clipboard.readText();
+            if (clipText) {
+              repInput.value += clipText;
+              updateInputStatsAndPreview();
+              showToast('Pasted text from clipboard.', 'success');
+            } else {
+              showToast('Clipboard is empty.', 'warning');
+            }
+          } catch (err) {
+            repInput.focus();
+            showToast('Browser blocked automatic paste. Long-press or press Ctrl+V inside the text box.', 'warning');
+          }
+        } else {
+          repInput.focus();
+          showToast('Clipboard read not supported directly. Please paste manually.', 'warning');
+        }
+      });
+
+      document.getElementById('selectInputBtn').addEventListener('click', () => {
+        if (!repInput.value) { showToast('Input box is empty.', 'warning'); return; }
+        repInput.focus();
+        repInput.select();
+        showToast('Selected all input text.', 'success');
+      });
+
+      document.getElementById('clearInputBtn').addEventListener('click', () => {
+        if (!repInput.value) { showToast('Input is already empty.', 'warning'); return; }
+        if (repInput.value.length > 350) {
+          openConfirmModal('Discard Large Input?', `Your input contains ${getUnicodeCharCount(repInput.value).toLocaleString()} characters. Are you sure you want to clear it?`, () => {
+            repInput.value = '';
+            updateInputStatsAndPreview();
+            showToast('Input cleared.', 'success');
+          });
+        } else {
+          repInput.value = '';
+          updateInputStatsAndPreview();
+          showToast('Input cleared.', 'success');
+        }
+      });
+
+      function executeGeneration(text, count, sep, useNumbering) {
+        if (isGenerating) return;
+        isGenerating = true;
+        const genBtn = document.getElementById('generateBtn');
+        genBtn.disabled = true;
+
+        try {
+          const result = buildRepeatedSegment(text, count, sep, useNumbering);
+          updateOutputUI(result, count);
+          showToast(`Successfully generated ${count.toLocaleString()} repetitions!`, 'success');
+        } catch (err) {
+          showToast('Generation failed due to device memory constraints. Please reduce the repetition count.', 'error');
+        } finally {
+          isGenerating = false;
+          genBtn.disabled = false;
+        }
+      }
+
+      document.getElementById('generateBtn').addEventListener('click', () => {
+        if (isGenerating) return;
+        const text = repInput.value;
+        if (!text || text.length === 0) {
+          showToast('Please enter some text to repeat before generating.', 'error');
+          repInput.focus();
+          return;
+        }
+
+        const rawCountStr = String(repCount.value).trim();
+        const parsedCount = Number(rawCountStr);
+
+        if (!rawCountStr || !Number.isInteger(parsedCount) || parsedCount < MIN_REPS || parsedCount > MAX_REPS) {
+          showToast(`Please enter a valid whole number between ${MIN_REPS} and ${MAX_REPS.toLocaleString()}.`, 'error');
+          repCount.focus();
+          return;
+        }
+
+        const sep = resolveSeparatorString();
+        const useNum = repNumbering.checked;
+
+        const textBytes = getByteLength(text);
+        const sepBytes = getByteLength(sep);
+        const avgNumBytes = useNum ? (String(parsedCount).length + 2) : 0;
+        const estimatedBytes = (parsedCount * (textBytes + avgNumBytes)) + (Math.max(0, parsedCount - 1) * sepBytes);
+        const hardMaxBytes = appPrefs.safeLimitMB * 1024 * 1024;
+
+        if (estimatedBytes > hardMaxBytes) {
+          showToast(`Safety Block: Expected output size (${formatBytes(estimatedBytes)}) exceeds your configured safe limit of ${appPrefs.safeLimitMB} MB.`, 'error');
+          return;
+        }
+
+        if (estimatedBytes > WARN_THRESHOLD_BYTES) {
+          openConfirmModal('Large Output Memory Warning', `This operation will generate approximately ${formatBytes(estimatedBytes)} of text (${parsedCount.toLocaleString()} repetitions). On older devices, this may briefly slow down the browser. Proceed?`, () => executeGeneration(text, parsedCount, sep, useNum));
+          return;
+        }
+
+        executeGeneration(text, parsedCount, sep, useNum);
+      });
+
+      async function copyTextWithFallback(textToCopy, targetTextarea) {
+        if (!textToCopy) { showToast('Nothing to copy.', 'warning'); return; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          try {
+            await navigator.clipboard.writeText(textToCopy);
+            showToast('Copied to clipboard!', 'success');
+            return;
+          } catch (err) { /* Fall through */ }
+        }
+        try {
+          targetTextarea.focus();
+          targetTextarea.select();
+          const ok = document.execCommand('copy');
+          if (ok) showToast('Copied to clipboard!', 'success');
+          else showToast('Automatic copy restricted. Text is selected—press Ctrl+C.', 'warning');
+        } catch (err) {
+          showToast('Clipboard access unavailable. Please select and copy manually.', 'error');
+        }
+      }
+
+      copyOutputBtn.addEventListener('click', () => copyTextWithFallback(repOutput.value, repOutput));
+
+      shareOutputBtn.addEventListener('click', async () => {
+        const content = repOutput.value;
+        if (!content) return;
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: 'TextMaster Repeated Text', text: content.slice(0, 15000) });
+            showToast('Opened share sheet!', 'success');
+          } catch (err) {
+            if (err.name !== 'AbortError') copyTextWithFallback(content, repOutput);
+          }
+        } else {
+          copyTextWithFallback(content, repOutput);
+          showToast('Direct share not supported—text copied to clipboard instead!', 'warning');
+        }
+      });
+
+      speakOutputBtn.addEventListener('click', () => {
+        const content = repOutput.value;
+        if (!content) return;
+        if (!('speechSynthesis' in window)) { showToast('Text-to-Speech is not supported by your browser.', 'warning'); return; }
+        if (window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+          speakOutputBtn.textContent = '🔊 Listen';
+          showToast('Stopped voice playback.', 'success');
+          return;
+        }
+        const utterance = new SpeechSynthesisUtterance(content.slice(0, 1500));
+        utterance.onend = () => { speakOutputBtn.textContent = '🔊 Listen'; };
+        utterance.onerror = () => { speakOutputBtn.textContent = '🔊 Listen'; };
+        speakOutputBtn.textContent = '⏹️ Stop';
+        window.speechSynthesis.speak(utterance);
+        showToast('Playing voice audio...', 'success');
+      });
+
+      selectOutputBtn.addEventListener('click', () => {
+        if (!repOutput.value) return;
+        repOutput.focus();
+        repOutput.select();
+        showToast('Output text selected.', 'success');
+      });
+
+      swapTextBtn.addEventListener('click', () => {
+        if (!repOutput.value) return;
+        const outBytes = getByteLength(repOutput.value);
+        if (outBytes > 500 * 1024) {
+          showToast('Output is too large (>500 KB) to swap back safely.', 'warning');
+          return;
+        }
+        const currentInput = repInput.value;
+        repInput.value = repOutput.value;
+        updateOutputUI(currentInput, currentInput ? 1 : 0);
+        updateInputStatsAndPreview();
+        showToast('Swapped input and output text.', 'success');
+      });
+
+      clearOutputBtn.addEventListener('click', () => {
+        if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+          speakOutputBtn.textContent = '🔊 Listen';
+        }
+        updateOutputUI('', 0);
+        showToast('Output cleared.', 'success');
+      });
+
+      downloadTxtBtn.addEventListener('click', () => {
+        const content = repOutput.value;
+        if (!content) { showToast('Generate some text before downloading.', 'warning'); return; }
+        try {
+          let fname = document.getElementById('downloadFilename').value.trim();
+          if (!fname) fname = 'textmaster-output.txt';
+          fname = fname.replace(/[<>:"/\\|?*\x00-\x1F]/g, '-');
+          if (!fname.toLowerCase().endsWith('.txt')) fname += '.txt';
+
+          const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = fname;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(() => URL.revokeObjectURL(url), 2000);
+          showToast(`Downloaded "${fname}" (${formatBytes(blob.size)}).`, 'success');
+        } catch (err) {
+          showToast('Download failed: Your browser blocked local file creation.', 'error');
+        }
+      });
+
+      // --- NEW FEATURE: QR Code Generator ---
+      generateQrBtn.addEventListener('click', () => {
+        const content = repOutput.value;
+        if (!content) return;
+        
+        const qrContainer = document.getElementById('qrcode-container');
+        const qrDisplay = document.getElementById('qrcode-display');
+        
+        // Limit QR content to avoid browser crash (QR codes have capacity limits, ~3KB max for high density)
+        const qrSafeContent = content.length > 2500 ? content.substring(0, 2500) + "\n...[Truncated for QR]" : content;
+        
+        if (content.length > 2500) {
+          showToast('Text is very long. QR code will contain a truncated version (first 2500 chars).', 'warning');
+        }
+
+        qrDisplay.innerHTML = ''; // Clear previous
+        qrContainer.style.display = 'flex';
+        
+        try {
+          qrCodeObj = new QRCode(qrDisplay, {
+            text: qrSafeContent,
+            width: 180,
+            height: 180,
+            colorDark : "#064e3b",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.M
+          });
+          showToast('QR Code generated successfully!', 'success');
+        } catch (e) {
+          showToast('Failed to generate QR Code.', 'error');
+        }
+      });
+
+
+      // --- 18 Additional Text Tools Logic ---
+      const toolsText = document.getElementById('toolsText');
+
+      function updateToolsCounters() {
+        const val = toolsText.value;
+        const words = getWordCount(val);
+        document.getElementById('toolCharCount').textContent = getUnicodeCharCount(val).toLocaleString();
+        document.getElementById('ToolCharNoSpaceCount') ? document.getElementById('toolCharNoSpaceCount').textContent = getUnicodeCharCount(val.replace(/\s/g, '')).toLocaleString() : null;
+        document.getElementById('toolWordCount').textContent = words.toLocaleString();
+        document.getElementById('toolLineCount').textContent = getLineCount(val).toLocaleString();
+        const sec = Math.ceil((words / 200) * 60);
+        document.getElementById('toolReadTime').textContent = sec < 60 ? `${sec}s` : `${Math.ceil(sec / 60)}m`;
+      }
+      toolsText.addEventListener('input', updateToolsCounters);
+
+      document.querySelectorAll('[data-tool-action]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.getAttribute('data-tool-action');
+          const text = toolsText.value;
+          if (!text) { showToast('Please enter some text in the workspace first.', 'warning'); toolsText.focus(); return; }
+
+          let updated = text;
+          switch (action) {
+            case 'removeExtraSpaces':
+              updated = text.split(/\r\n|\r|\n/).map(line => line.replace(/[ \t]+/g, ' ').trim()).join('\n');
+              showToast('Removed extra spaces.', 'success'); break;
+            case 'removeEmptyLines':
+              updated = text.split(/\r\n|\r|\n/).filter(line => line.trim().length > 0).join('\n');
+              showToast('Removed empty lines.', 'success'); break;
+            case 'uppercase':
+              updated = text.toUpperCase(); showToast('Converted text to UPPERCASE.', 'success'); break;
+            case 'lowercase':
+              updated = text.toLowerCase(); showToast('Converted text to lowercase.', 'success'); break;
+            case 'titlecase':
+              updated = text.toLowerCase().replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+              showToast('Converted text to Title Case.', 'success'); break;
+            case 'reverse':
+              updated = Array.from(text).reverse().join(''); showToast('Reversed text (preserving emojis & Unicode).', 'success'); break;
+            case 'removeDuplicateLines': {
+              const seen = new Set(); const uniqueLines = [];
+              for (const line of text.split(/\r\n|\r|\n/)) { if (!seen.has(line)) { seen.add(line); uniqueLines.push(line); } }
+              updated = uniqueLines.join('\n'); showToast('Removed duplicate lines.', 'success'); break;
+            }
+            case 'trimText':
+              updated = text.split(/\r\n|\r|\n/).map(line => line.trim()).join('\n').trim();
+              showToast('Trimmed leading and trailing whitespace.', 'success'); break;
+            case 'sortAZ':
+              updated = text.split(/\r\n|\r|\n/).sort((a, b) => a.localeCompare(b)).join('\n');
+              showToast('Sorted lines alphabetically (A → Z).', 'success'); break;
+            case 'sortZA':
+              updated = text.split(/\r\n|\r|\n/).sort((a, b) => b.localeCompare(a)).join('\n');
+              showToast('Sorted lines in reverse order (Z → A).', 'success'); break;
+            case 'shuffleLines': {
+              const lines = text.split(/\r\n|\r|\n/);
+              for (let i = lines.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [lines[i], lines[j]] = [lines[j], lines[i]]; }
+              updated = lines.join('\n'); showToast('Shuffled lines randomly!', 'success'); break;
+            }
+            case 'numberLines':
+              updated = text.split(/\r\n|\r|\n/).map((line, idx) => `${idx + 1}. ${line}`).join('\n');
+              showToast('Added line numbers to each line.', 'success'); break;
+            case 'alternatingCase': {
+              let toggle = false;
+              updated = Array.from(text).map(ch => { if (/[a-zA-Z]/.test(ch)) { toggle = !toggle; return toggle ? ch.toLowerCase() : ch.toUpperCase(); } return ch; }).join('');
+              showToast('Converted to aLtErNaTiNg cAsE.', 'success'); break;
+            }
+          }
+          toolsText.value = updated;
+          updateToolsCounters();
+        });
+      });
+
+      document.getElementById('applyAffixBtn').addEventListener('click', () => {
+        const text = toolsText.value;
+        if (!text) { showToast('Please enter text in the workspace first.', 'warning'); return; }
+        const prefix = document.getElementById('toolPrefix').value;
+        const suffix = document.getElementById('toolSuffix').value;
+        toolsText.value = text.split(/\r\n|\r|\n/).map(line => prefix + line + suffix).join('\n');
+        updateToolsCounters();
+        showToast('Applied prefix and suffix to each line.', 'success');
+      });
+
+      document.getElementById('applyFindReplaceBtn').addEventListener('click', () => {
+        const text = toolsText.value;
+        const findStr = document.getElementById('toolFind').value;
+        const replaceStr = document.getElementById('toolReplace').value;
+        const caseSensitive = document.getElementById('toolCaseSensitive').checked;
+        if (!text) { showToast('Workspace is empty.', 'warning'); return; }
+        if (!findStr) { showToast('Please enter the text you want to find.', 'warning'); return; }
+
+        const escaped = findStr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const flags = caseSensitive ? 'g' : 'gi';
+        const regex = new RegExp(escaped, flags);
+        const matches = text.match(regex);
+        const count = matches ? matches.length : 0;
+
+        if (count === 0) { showToast(`No occurrences of "${findStr}" found.`, 'warning'); return; }
+        toolsText.value = text.replace(regex, replaceStr);
+        updateToolsCounters();
+        showToast(`Replaced ${count.toLocaleString()} occurrence(s).`, 'success');
+      });
+
+      document.getElementById('toolsCopyBtn').addEventListener('click', () => copyTextWithFallback(toolsText.value, toolsText));
+      document.getElementById('toolsSendToRepeaterBtn').addEventListener('click', () => {
+        if (!toolsText.value) { showToast('Workspace is empty.', 'warning'); return; }
+        repInput.value = toolsText.value;
+        updateInputStatsAndPreview();
+        navigateTo('repeater');
+        showToast('Sent workspace text to Text Repeater!', 'success');
+      });
+      document.getElementById('toolsClearBtn').addEventListener('click', () => {
+        if (!toolsText.value) return;
+        toolsText.value = '';
+        updateToolsCounters();
+        showToast('Workspace cleared.', 'success');
+      });
+
+      // --- Settings Page Handlers ---
+      document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+        const newReps = parseInt(document.getElementById('settingDefaultReps').value, 10);
+        if (isNaN(newReps) || newReps < MIN_REPS || newReps > MAX_REPS) {
+          showToast(`Default repetition count must be between ${MIN_REPS} and ${MAX_REPS.toLocaleString()}.`, 'error');
+          return;
+        }
+        appPrefs.theme = document.getElementById('settingTheme').value;
+        appPrefs.fontSize = document.getElementById('settingFontSize').value;
+        appPrefs.defaultReps = newReps;
+        appPrefs.defaultSep = document.getElementById('settingDefaultSep').value;
+        appPrefs.defaultNumbering = document.getElementById('settingDefaultNumbering').checked;
+        appPrefs.safeLimitMB = parseInt(document.getElementById('settingSafeLimit').value, 10) || 5;
+
+        applyThemeAndUI();
+        applyDefaultsToRepeater();
+        updateInputStatsAndPreview();
+        const saved = savePreferences();
+        showToast(saved ? 'Settings saved and applied!' : 'Settings applied for this session (localStorage unavailable).', 'success');
+      });
+
+      document.getElementById('resetSettingsBtn').addEventListener('click', () => {
+        openConfirmModal('Reset All Settings?', 'Are you sure you want to restore all preferences back to factory defaults?', () => {
+          appPrefs = Object.assign({}, DEFAULT_PREFS);
+          if (storageSupported) { try { window.localStorage.removeItem(STORAGE_KEY); } catch (e) {} }
+          applyThemeAndUI();
+          applyDefaultsToRepeater();
+          updateInputStatsAndPreview();
+          showToast('All settings have been reset to defaults.', 'success');
+        });
+      });
+
+      // --- Contact Us Configurable Email Logic ---
+      function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+      function renderContactEmailState() {
+        const email = appPrefs.contactEmail;
+        const noticeEl = document.getElementById('emailNotConfiguredNotice');
+        const mailtoBox = document.getElementById('activeMailtoContainer');
+        const emailDisplay = document.getElementById('configuredEmailDisplay');
+        const mailtoLink = document.getElementById('activeMailtoLink');
+        const inputEl = document.getElementById('configContactEmail');
+
+        inputEl.value = email;
+        if (email && isValidEmail(email)) {
+          noticeEl.style.display = 'none';
+          mailtoBox.style.display = 'block';
+          emailDisplay.textContent = email;
+          mailtoLink.href = 'mailto:' + encodeURIComponent(email) + '?subject=' + encodeURIComponent('TextMaster Inquiry');
+        } else {
+          noticeEl.style.display = 'block';
+          mailtoBox.style.display = 'none';
+          emailDisplay.textContent = '';
+          mailtoLink.removeAttribute('href');
+        }
+      }
+      document.getElementById('saveContactEmailBtn').addEventListener('click', () => {
+        const rawEmail = document.getElementById('configContactEmail').value.trim();
+        if (!rawEmail || !isValidEmail(rawEmail)) { showToast('Please enter a valid email address.', 'error'); return; }
+        appPrefs.contactEmail = rawEmail;
+        savePreferences();
+        renderContactEmailState();
+        showToast('Contact email configured and mailto link activated.', 'success');
+      });
+      document.getElementById('clearContactEmailBtn').addEventListener('click', () => {
+        appPrefs.contactEmail = '';
+        savePreferences();
+        renderContactEmailState();
+        showToast('Configured contact email removed.', 'success');
+      });
+
+      // --- Global Error Boundary ---
+      window.addEventListener('error', (event) => {
+        console.error('Unexpected error caught:', event.error);
+        showToast('An unexpected browser error occurred. Your text remains safe.', 'error');
+      });
+
+      // --- Initialization & Loading Screen Logic ---
+      window.addEventListener('load', () => {
+        loadPreferences();
+        applyThemeAndUI();
+        applyDefaultsToRepeater();
+        updateInputStatsAndPreview();
+        updateToolsCounters();
+
+        // Hide Loading Screen after a brief premium feel delay
+        setTimeout(() => {
+          const loader = document.getElementById('loadingScreen');
+          loader.classList.add('hidden');
+          
+          // Check for Welcome Popup (First time visit)
+          const hasWelcomed = localStorage.getItem('textmaster_welcomed_v1');
+          if (!hasWelcomed) {
+            setTimeout(() => {
+              document.getElementById('welcomeModal').classList.add('open');
+            }, 600); // Slight delay after loader fades
+          }
+        }, 1200);
+      });
+
+      // Welcome Modal Close Logic
+      document.getElementById('closeWelcomeBtn').addEventListener('click', () => {
+        document.getElementById('welcomeModal').classList.remove('open');
+        localStorage.setItem('textmaster_welcomed_v1', 'true');
+      });
+
+    })();
+  </script>
+</body>
+</html>
